@@ -3,6 +3,9 @@
   <h1>VibeSync</h1>
   <p><strong>Turn App Ideas Into Master Blueprints</strong></p>
   <p>Intelligent Prompt Generator for AI-Powered Creations</p>
+  <p>
+    <a href="https://vibesync-five.vercel.app/"><strong>Live Demo &raquo;</strong></a>
+  </p>
 </div>
 
 [![VibeSync Banner](https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600&h=400)](https://github.com/rehan9703/vibesync)
