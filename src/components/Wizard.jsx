@@ -28,7 +28,8 @@ const steps = [
 
 const Wizard = ({ onGenerate }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [isSuggesting, setIsSuggesting] = useState(null); // 'name' or 'tagline'
+  const [isSuggesting, setIsSuggesting] = useState(null); // 'name' or 'tagline' (loading state)
+  const [suggestionTarget, setSuggestionTarget] = useState(null); // 'name' or 'tagline' (target field)
   const [suggestions, setSuggestions] = useState([]);
   
   const [formData, setFormData] = useState({
@@ -148,6 +149,7 @@ const Wizard = ({ onGenerate }) => {
     if (!isLocal && !apiKeys[preferredProvider]) return alert(`Please configure your ${preferredProvider} API Key first!`);
     
     setIsSuggesting(type);
+    setSuggestionTarget(type);
     
     try {
       const prompt = type === 'name' 
@@ -381,7 +383,7 @@ const Wizard = ({ onGenerate }) => {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)' }}>AI SUGGESTIONS:</span>
-                    <button onClick={() => setSuggestions([])} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={14}/></button>
+                    <button onClick={() => { setSuggestions([]); setSuggestionTarget(null); }} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={14}/></button>
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                     {suggestions.map(s => (
@@ -389,8 +391,9 @@ const Wizard = ({ onGenerate }) => {
                         key={s} 
                         className="chip" 
                         onClick={() => {
-                          updateField(isSuggesting === 'name' ? 'appName' : 'tagline', s);
+                          updateField(suggestionTarget === 'name' ? 'appName' : 'tagline', s);
                           setSuggestions([]);
+                          setSuggestionTarget(null);
                         }}
                       >
                         {s}
