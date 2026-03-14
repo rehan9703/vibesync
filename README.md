@@ -21,14 +21,70 @@ Never write a prompt from scratch again.
 
 ---
 
-## ✨ Key Features
+## 🧠 Configure Your AI Hub (The Intelligence Core)
 
-- **⚡ Beast Mode Generation:** Takes 8 core inputs (App Name, Role, Goal, Features, Theme, etc.) and synthesizes a massive, deeply detailed PRD (Product Requirements Document) in seconds.
-- **🔐 Absolute Privacy:** No database, no backend, no signups. Your API Keys and connection endpoints never leave your browser (`localStorage` strictly).
-- **🌗 Liquid Light/Dark Mode:** Completely custom UI engine. Gorgeous dark glassmorphism or a pristine Off-White Light Mode accented by dynamic neon glows.
-- **🖥️ 16+ API Providers Supported:** Out-of-the-box integration for Anthropic, OpenAI, DeepSeek, Mistral, xAI, OpenRouter, and more.
-- **🧠 100% Free Local AI Ready:** Built-in connection layers for local inference tools like Ollama and LM Studio — no API Keys required!
-- **📜 Local Blueprint History:** Automatically caches your past 20 prompts into an intelligent, animated side panel.
+VibeSync features a state-of-the-art "AI Hub" that allows you to swap brains instantly. We support over 16+ providers across two categories:
+
+### ☁️ Cloud AI Providers (API Key Required)
+| Provider | Key Models | Best For |
+| :--- | :--- | :--- |
+| **Anthropic** | Claude 3.5 Sonnet, Opus | Complex coding & reasoning |
+| **OpenAI** | GPT-4o, o1-preview | Versatility & popular ecosystem |
+| **DeepSeek** | DeepSeek V3, R1 | Elite logic, math & code |
+| **Google Gemini** | 1.5 Pro, Flash | Massive 2M+ context window |
+| **Groq** | Llama 3.3, Mixtral | Blazing fast inference (800+ t/s) |
+| **OpenRouter** | 500+ models | Unified access to all AI |
+| **xAI (Grok)** | Grok-2 | Real-time X integration |
+| **Mistral** | Mistral Large | Leading open-weight cloud |
+
+---
+
+### 🏠 Local AI Engines (100% Free & Private)
+Run models locally with zero data leaving your machine. Ideal for private projects.
+
+#### 🦙 Ollama
+- **Default Port**: `11434`
+- **Setup**: `ollama serve` -> Connect `http://localhost:11434/v1/chat/completions`
+- **Models**: Llama 3.2, Mistral, Gemma 2, Phi-3.
+
+#### 🖥️ LM Studio
+- **Default Port**: `1234`
+- **Setup**: Start "Local Server" tab -> No API key needed.
+- **Models**: Supports any GGUF model via `llama.cpp`.
+
+#### 🤖 Jan / LocalAI
+- **Ports**: `1337` / `8080`
+- **Setup**: Open-source ChatGPT alternatives. Connect via OpenAI-compatible endpoints.
+
+---
+
+## 🛠️ Advanced Generation Features
+
+- **Master Prompt Mode**: Generates a single, massive objective-driven prompt.
+- **Step-by-Step Mode**: Breaks your project into actionable development phases.
+- **Full PRD**: A deep Product Requirements Document with User Stories and Technical Specs.
+- **Component List**: Automatic breakdown of every UI/Backend component needed.
+
+```mermaid
+mindmap
+  root((VibeSync Engine))
+    Cloud APIs
+      Anthropic
+      OpenAI
+      DeepSeek
+      Gemini
+    Local Engines
+      Ollama
+      LM Studio
+      LocalAI
+    Output Control
+      Blueprint Sections
+      Raw Markdown
+      History Cache
+    Design
+      Light Mode (Off-White)
+      Dark Mode (Glassmorphism)
+```
 
 ---
 
