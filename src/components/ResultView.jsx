@@ -89,13 +89,28 @@ const extractSections = (text) => {
 const ResultView = ({ onReset, prompt, metadata }) => {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('rendered');
-  const [expandedSection, setExpandedSection] = useState(null);
+  const [expandedSections, setExpandedSections] = useState(new Set());
   const [isFullscreen, setIsFullscreen] = useState(false);
   const outputRef = useRef(null);
 
   const sections = useMemo(() => extractSections(prompt || ''), [prompt]);
   const wordCount = useMemo(() => (prompt || '').split(/\s+/).filter(Boolean).length, [prompt]);
   const charCount = useMemo(() => (prompt || '').length, [prompt]);
+
+  const toggleSection = (i) => {
+    const next = new Set(expandedSections);
+    if (next.has(i)) next.delete(i);
+    else next.add(i);
+    setExpandedSections(next);
+  };
+
+  const toggleAllSections = () => {
+    if (expandedSections.size === sections.length) {
+      setExpandedSections(new Set());
+    } else {
+      setExpandedSections(new Set(sections.map((_, i) => i)));
+    }
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(prompt || '');
@@ -251,6 +266,18 @@ const ResultView = ({ onReset, prompt, metadata }) => {
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 style={{ padding: '1.5rem', maxHeight: '70vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
               >
+                {/* Sections Header with Toggle All */}
+                {sections.length > 0 && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', padding: '0 0.5rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: '600' }}>Blueprint Components</span>
+                    <button 
+                      onClick={toggleAllSections}
+                      style={{ background: 'none', border: 'none', color: 'var(--primary)', fontSize: '0.8rem', cursor: 'pointer', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                    >
+                      {expandedSections.size === sections.length ? 'Collapse All' : 'Expand All'}
+                    </button>
+                  </div>
+                )}
                 {sections.length === 0 ? (
                   <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>No sections detected in the output.</div>
                 ) : sections.map((sec, i) => (
@@ -262,17 +289,17 @@ const ResultView = ({ onReset, prompt, metadata }) => {
                     style={{ border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden', background: 'var(--bg-card)' }}
                   >
                     <button
-                      onClick={() => setExpandedSection(expandedSection === i ? null : i)}
+                      onClick={() => toggleSection(i)}
                       style={{ width: '100%', padding: '1rem 1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)', textAlign: 'left' }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <span style={{ width: '26px', height: '26px', borderRadius: '8px', background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: '700', color: 'var(--primary)' }}>{i+1}</span>
                         <span style={{ fontWeight: '600', fontSize: '0.95rem' }}>{sec.title}</span>
                       </div>
-                      {expandedSection === i ? <ChevronUp size={16} color="var(--text-muted)" /> : <ChevronDown size={16} color="var(--text-muted)" />}
+                      {expandedSections.has(i) ? <ChevronUp size={16} color="var(--text-muted)" /> : <ChevronDown size={16} color="var(--text-muted)" />}
                     </button>
                     <AnimatePresence>
-                      {expandedSection === i && (
+                      {expandedSections.has(i) && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}

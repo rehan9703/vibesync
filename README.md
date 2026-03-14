@@ -1,7 +1,13 @@
 <div align="center">
-  <img src="public/logo.png" alt="VibeSync Logo" width="200" />
+  <img src="public/logo.png" width="120" height="120" alt="VibeSync Logo" />
   <h1>VibeSync</h1>
-  <p><strong>Intelligent Prompt Generator for AI-Powered Creations</strong></p>
+  <p><strong>Turn App Ideas Into Master Blueprints</strong></p>
+  <p>Intelligent Prompt Generator for AI-Powered Creations</p>
+</div>
+
+[![VibeSync Banner](https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600&h=400)](https://github.com/rehan9703/vibesync)
+
+<div align="center">
   <p>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
     <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />

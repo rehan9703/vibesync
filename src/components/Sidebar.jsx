@@ -115,14 +115,32 @@ const Sidebar = ({ currentView, setView, onHistoryClick, isOpen, setIsOpen, them
         </div>
 
         <a
-          href="https://github.com/cpjet64/vibecoding"
-          target="_blank"
+          target="_blank" 
           rel="noopener noreferrer"
-          style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.6rem 0.75rem', borderRadius: '8px', color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.8rem', transition: 'all 0.2s', border: '1px solid transparent' }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'var(--border)'; e.currentTarget.style.color = 'var(--text-primary)'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-muted)'; }}
+          href="https://github.com/rehan9703/vibesync"
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '10px', 
+            padding: '0.8rem 1rem', 
+            background: 'rgba(255,255,255,0.03)', 
+            border: '1px solid var(--border)', 
+            borderRadius: '12px', 
+            color: 'var(--text-secondary)', 
+            textDecoration: 'none', 
+            fontSize: '0.875rem', 
+            transition: 'all 0.2s' 
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+            e.currentTarget.style.color = 'var(--text-primary)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+            e.currentTarget.style.color = 'var(--text-secondary)';
+          }}
         >
-          <Globe size={14} /> View Source Repos
+          <Globe size={14} /> Source Code
         </a>
 
         <button

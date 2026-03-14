@@ -44,13 +44,18 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const savedKeys = localStorage.getItem('promptforge_keys');
+    const savedKeys = localStorage.getItem('vibesync_keys');
     if (savedKeys) {
       setKeysConfigured(true);
     }
-    const savedHistory = localStorage.getItem('promptforge_history');
+    const savedHistory = localStorage.getItem('vibesync_history');
     if (savedHistory) {
-      setHistory(JSON.parse(savedHistory));
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (e) {
+        console.error("Failed to parse history:", e);
+        setHistory([]);
+      }
     }
   }, []);
 
@@ -70,13 +75,13 @@ const App = () => {
     };
     const newHistory = [newEntry, ...history].slice(0, 20); // Keep up to 20
     setHistory(newHistory);
-    localStorage.setItem('promptforge_history', JSON.stringify(newHistory));
+    localStorage.setItem('vibesync_history', JSON.stringify(newHistory));
   };
 
   const deleteHistoryItem = (id) => {
     const newHistory = history.filter(item => item.id !== id);
     setHistory(newHistory);
-    localStorage.setItem('promptforge_history', JSON.stringify(newHistory));
+    localStorage.setItem('vibesync_history', JSON.stringify(newHistory));
   };
 
   const loadPrompt = (item) => {

@@ -196,41 +196,47 @@ const APIKeySetup = ({ onComplete }) => {
   const [copiedKey, setCopiedKey] = useState(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem('promptforge_keys');
-    if (saved) setKeys(JSON.parse(saved));
-    const savedEndpoints = localStorage.getItem('promptforge_localendpoints');
-    if (savedEndpoints) setLocalEndpoints(JSON.parse(savedEndpoints));
-    const savedModels = localStorage.getItem('promptforge_custommodels');
-    if (savedModels) setCustomModels(JSON.parse(savedModels));
+    const saved = localStorage.getItem('vibesync_keys');
+    if (saved) {
+      try { setKeys(JSON.parse(saved)); } catch(e) { console.error(e); }
+    }
+    const savedEndpoints = localStorage.getItem('vibesync_localendpoints');
+    if (savedEndpoints) {
+      try { setLocalEndpoints(JSON.parse(savedEndpoints)); } catch(e) { console.error(e); }
+    }
+    const savedModels = localStorage.getItem('vibesync_custommodels');
+    if (savedModels) {
+      try { setCustomModels(JSON.parse(savedModels)); } catch(e) { console.error(e); }
+    }
   }, []);
 
   const saveKey = useCallback((id, val) => {
     const next = { ...keys, [id]: val };
     setKeys(next);
-    localStorage.setItem('promptforge_keys', JSON.stringify(next));
+    localStorage.setItem('vibesync_keys', JSON.stringify(next));
     setStatus(s => ({ ...s, [id]: null }));
   }, [keys]);
 
   const saveEndpoint = useCallback((id, val) => {
     const next = { ...localEndpoints, [id]: val };
     setLocalEndpoints(next);
-    localStorage.setItem('promptforge_localendpoints', JSON.stringify(next));
+    localStorage.setItem('vibesync_localendpoints', JSON.stringify(next));
     // Also save per-provider config for aiService to read
-    localStorage.setItem(`promptforge_localconfig_${id}`, JSON.stringify({ endpoint: val }));
+    localStorage.setItem(`vibesync_localconfig_${id}`, JSON.stringify({ endpoint: val }));
     setStatus(s => ({ ...s, [id]: null }));
   }, [localEndpoints]);
 
   const saveCustomModel = useCallback((id, val) => {
     const next = { ...customModels, [id]: val };
     setCustomModels(next);
-    localStorage.setItem('promptforge_custommodels', JSON.stringify(next));
+    localStorage.setItem('vibesync_custommodels', JSON.stringify(next));
   }, [customModels]);
 
   const deleteKey = useCallback((id) => {
     const next = { ...keys };
     delete next[id];
     setKeys(next);
-    localStorage.setItem('promptforge_keys', JSON.stringify(next));
+    localStorage.setItem('vibesync_keys', JSON.stringify(next));
     setStatus(s => ({ ...s, [id]: null }));
   }, [keys]);
 
@@ -243,7 +249,7 @@ const APIKeySetup = ({ onComplete }) => {
     try {
       // For local providers, temporarily ensure the custom endpoint is stored
       if (isLocal && localEndpoints[provider.id]) {
-        localStorage.setItem(`promptforge_localconfig_${provider.id}`, JSON.stringify({ endpoint: localEndpoints[provider.id] }));
+        localStorage.setItem(`vibesync_localconfig_${provider.id}`, JSON.stringify({ endpoint: localEndpoints[provider.id] }));
       }
       const model = customModels[provider.id] || MODEL_LISTS[provider.id.toUpperCase()]?.[0]?.id || 'auto';
       await conductAIRequest(provider.id, key, "Say 'ok'", true, model);

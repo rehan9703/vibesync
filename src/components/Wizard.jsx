@@ -88,22 +88,42 @@ const Wizard = ({ onGenerate }) => {
   }, [preferredProvider]);
 
   useEffect(() => {
-    const savedKeys = localStorage.getItem('promptforge_keys');
+    const savedKeys = localStorage.getItem('vibesync_keys');
     if (savedKeys) {
-      const parsed = JSON.parse(savedKeys);
-      setApiKeys(parsed);
-      const first = Object.keys(parsed).find(k => parsed[k]);
-      if (first) setPreferredProvider(first);
+      try {
+        const parsed = JSON.parse(savedKeys);
+        setApiKeys(parsed);
+        const first = Object.keys(parsed).find(k => parsed[k]);
+        if (first) setPreferredProvider(first);
+      } catch (e) {
+        console.error("Failed to parse API keys from localStorage:", e);
+      }
     }
-    const savedModels = localStorage.getItem('promptforge_custommodels');
+    const savedModels = localStorage.getItem('vibesync_custommodels');
     if (savedModels) {
-      setCustomModels(JSON.parse(savedModels));
+      try {
+        setCustomModels(JSON.parse(savedModels));
+      } catch (e) {
+        console.error("Failed to parse custom models from localStorage:", e);
+      }
     }
 
-    const endpoints = JSON.parse(localStorage.getItem('promptforge_localendpoints') || '{}');
-    const customMods = JSON.parse(localStorage.getItem('promptforge_custommodels') || '{}');
+    let endpoints = {};
+    try {
+      endpoints = JSON.parse(localStorage.getItem('vibesync_localendpoints') || '{}');
+    } catch (e) {
+      console.error("Failed to parse local endpoints from localStorage:", e);
+    }
+
+    let customMods = {};
+    try {
+      customMods = JSON.parse(localStorage.getItem('vibesync_custommodels') || '{}');
+    } catch (e) {
+      console.error("Failed to parse custom models (for local providers) from localStorage:", e);
+    }
+    
     const active = LOCAL_PROVIDER_IDS.filter(id => {
-      const isConfigured = localStorage.getItem(`promptforge_localconfig_${id}`);
+      const isConfigured = localStorage.getItem(`vibesync_localconfig_${id}`);
       return isConfigured || endpoints[id] || customMods[id];
     });
     setActiveLocalProviders(active);

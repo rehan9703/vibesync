@@ -260,6 +260,8 @@ export const conductAIRequest = async (provider, apiKey, userPrompt, isSuggestio
   };
 
   const providerConfig = PROVIDERS[provider.toUpperCase()];
+  if (!providerConfig) throw new Error(`Unknown provider: ${provider}`);
+
   // Use customModel if provided, else use speed for suggestions or power for blueprints
   const modelToUse = customModel || (isSuggestion ? providerConfig.models.speed : providerConfig.models.power);
   
@@ -299,13 +301,13 @@ export const conductAIRequest = async (provider, apiKey, userPrompt, isSuggestio
       if (!isLocal) headers['Authorization'] = `Bearer ${apiKey}`;
       // For OpenRouter, include app info headers
       if (provider === 'openrouter') {
-        headers['HTTP-Referer'] = 'https://promptforge.app';
+        headers['HTTP-Referer'] = 'https://vibesync.app';
         headers['X-Title'] = 'VibeSync';
       }
       // For local providers, use the saved custom endpoint if available
       let customEndpoint = null;
       if (isLocal) {
-        const savedConfig = localStorage.getItem(`promptforge_localconfig_${provider}`);
+        const savedConfig = localStorage.getItem(`vibesync_localconfig_${provider}`);
         if (savedConfig) {
           const cfg = JSON.parse(savedConfig);
           if (cfg.endpoint) customEndpoint = cfg.endpoint;

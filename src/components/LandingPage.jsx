@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Sparkles, ArrowRight, Zap, Shield, Cpu, GitBranch,
-  Database, Layers, Bot, Globe, Star, Check
+  Database, Layers, Bot, Globe, Star, Check, Github
 } from 'lucide-react';
 
 const PROVIDERS = [
@@ -122,14 +122,24 @@ const LandingPage = ({ onStart }) => {
           </motion.button>
           <motion.a
             whileHover={{ scale: 1.02 }}
-            href="https://github.com/cpjet64/vibecoding"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary"
-            style={{ padding: '1.1rem 2rem', fontSize: '1rem', borderRadius: '14px', textDecoration: 'none' }}
+            href="https://github.com/rehan9703/vibesync"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '0.7rem 1.25rem',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid var(--border)',
+              borderRadius: '10px',
+              color: 'var(--text-secondary)',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              transition: 'all 0.2s'
+            }}
           >
-            <Star size={18} />
-            View Source Repos
+            <Github size={18} /> Source Code
           </motion.a>
         </motion.div>
 
