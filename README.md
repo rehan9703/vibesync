@@ -7,6 +7,57 @@
 
 [![VibeSync Banner](https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600&h=400)](https://github.com/rehan9703/vibesync)
 
+## 🚀 Deployment
+
+VibeSync is a production-ready Vite application. You can deploy it to any static site hosting provider in seconds.
+
+### 🔼 Deploy to Vercel (Recommended)
+1. Push your code to a GitHub repository.
+2. Import the project into [Vercel](https://vercel.com).
+3. Vercel will automatically detect **Vite** and set the build command to `npm run build` and output directory to `dist`.
+4. Click **Deploy**.
+
+> [!NOTE]
+> The included `vercel.json` ensures that client-side routing works perfectly.
+
+### 🌐 Deploy to Netlify
+1. Connect your repository to [Netlify](https://netlify.com).
+2. Set **Build Command** to `npm run build`.
+3. Set **Publish Directory** to `dist`.
+4. The `_redirects` file in `public/` handles the SPA routing.
+
+### 🚞 Deploy to Railway
+1. Create a new project on [Railway](https://railway.app).
+2. Connect your GitHub repo.
+3. Railway will use **Nixpacks** to automatically detect the Node.js/Vite environment.
+4. Add a custom service if needed, but the default "Static" detection usually works best.
+
+### 💠 Deploy to Render
+1. Create a new **Static Site** on [Render](https://render.com).
+2. Connect your GitHub repo.
+3. Set **Build Command** to `npm run build`.
+4. Set **Publish Directory** to `dist`.
+5. Under **Advanced**, add a Rewrite Rule: `/*` -> `/index.html` (Status: 200).
+
+---
+
+## 🛠️ Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 📜 License
+
+MIT © [rehan9703](https://github.com/rehan9703)
+
 <div align="center">
   <p>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
